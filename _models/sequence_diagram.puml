@@ -1,0 +1,23 @@
+@startuml
+!include _common.style
+
+title Poker Game
+center footer Poker Game - Sequence Diagram
+
+actor "User" as U
+participant "_: PlayPoker" as M
+participant "pokerGame : PokerGame" as PG
+
+U -> M: main(args: String[])
+
+activate M
+    alt |args| > 0
+        M -> PG : quickStart(args)
+        break error : Exception
+            PG -> U : Bad arguments
+        end
+    end
+     M -> PG : start()
+deactivate M
+
+@enduml

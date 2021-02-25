@@ -1,0 +1,4 @@
+skinparam monochrome  false
+skinparam shadowing   false
+hide footbox
+hide empty members

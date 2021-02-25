@@ -1,0 +1,46 @@
+@startuml
+!include _common.style
+
+title Poker Game
+center footer Poker Game - Object Diagram
+
+object "card : Card" as card {
+}
+
+object "_ : Color" as color {
+symbol = 'C'
+word = "trèfle"
+}
+
+object "_ : Hand" as hand {
+}
+
+object "player : Player" as player {
+name = "Alex"
+}
+
+object "_ : ArrayList<Player>" as players {
+}
+
+object "pokerGame : PokerGame" as pokergame {
+}
+
+map "_ : HashMap<Player, Integer>" as scoreboard {
+player => 5
+}
+
+object "_ : Value" as value {
+symbol = '5'
+rank = 5
+word = "cinq"
+}
+
+card --> color : color
+card --> value : value
+hand *--> "5" card : cards
+player --> hand : hand
+scoreboard o--> "2..10" player : key
+players o--> "2..10" player : element
+pokergame --> players : players
+pokergame --> scoreboard : scoreboard
+@enduml

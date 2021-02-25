@@ -1,6 +1,6 @@
 package uqam.inf5153.poker;
 
-
+/*
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -121,4 +121,6 @@ public class MainTest {
         assertEquals("ERROR", Main.result);
     }
 
+
 }
+        */

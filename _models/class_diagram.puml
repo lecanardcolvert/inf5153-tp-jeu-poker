@@ -1,0 +1,120 @@
+@startuml
+!include _common.style
+
+title Poker Game
+center footer Poker Game - Class Diagram
+
+package uqam.inf5153.poker {
+
+    class Card {
+        + {static} CompareByColor
+        + {static} CompareByValue
+        --
+        + getColor() : Color
+        + getValue() : Value
+    }
+
+    class CardFactory {
+        + {static} getCard : Card
+        + {static} getCards : Card[]
+    }
+
+    enum Color {
+        + {static} findBySymbol(char symbol) : Color
+        + {static} CompareByValue
+        --
+        - char symbol
+        - String word
+        --
+        + getWord() : String
+    }
+
+    class Hand {
+        + getCards() : Card[]
+    }
+
+    class Player {
+        - {static} int MIN_NAME_LENGTH
+        - {static} int MAX_NAME_LENGTH
+        --
+        - String name
+        --
+        + getHand() : Hand
+        + getName() : String
+        - isNameValid(String name) : boolean
+        + setHand(Hand hand) : void
+        - setName(String name) : void
+    }
+
+    class PlayPoker {
+        + {static} main(String args[])
+    }
+
+    class Poker {
+        + {static} getBestPair(Hand hand) : Card[]
+        + {static} getHighCard(Hand hand) : Card
+        + {static} getResults(PokerGame pokerGame) : HashMap<Player, Integer>
+        + {static} getWinners(PokerGame pokerGame) : ArrayList<Player>
+        + {static} hasPair(Hand hand) : boolean
+        + {static} isFlush(Hand hand) : boolean
+        + {static} valueHand(Hand hand) : int
+        + {static} valueHandInWords(Hand hand) : String
+        + {static} valueHighCard(Hand hand) : int
+    }
+
+    class PokerGame {
+        - {static} String YES
+        - {static} String NO
+        - {static} int MAX_PLAYERS
+        --
+        - addPlayer(Player player) : void
+        - continueGame() : void
+        + getPlayers() : ArrayList<Player>
+        - incrementWinnerScores() : void
+        - inputHands() : void
+        - inputPlayer() : void
+        - inputMorePlayers() : void
+        - isPlayerPresent() : boolean
+        - isMaxPlayersReached() : boolean
+        + quickStart(String args[]) : void
+        + start() : void
+        - printResults() : void
+        - printScoreboard() : void
+    }
+
+    object ArrayList {
+        --
+        + get() : Player
+
+    }
+
+    object HashMap {
+        + getKey : Player
+        + getValue : int
+    }
+
+    enum Value {
+        + {static} findBySymbol(char symbol) : Value
+        --
+        - char symbol
+        - int rank
+        - String word
+        --
+        + getRank() : int
+        + getWord() : String
+    }
+
+Card "1" --> "1" Color : color
+Card "1" --> "1" Value : value
+Hand "1" *--> "5" Card : cards
+Player "1" --> "1" Hand : hand
+PokerGame "1" --> "1" HashMap : scoreboard
+PokerGame "1" --> "1" ArrayList : players
+PokerGame .. Poker
+PlayPoker .. PokerGame
+PokerGame .. CardFactory
+ArrayList "1" o--> "2..10" Player
+HashMap "1" o--> "2..10" Player
+
+}
+@enduml
